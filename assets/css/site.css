@@ -499,10 +499,11 @@ a { color: inherit; text-decoration: none; }
 .b-caption-centre { text-align: center; font-size: 15px; bottom: 28px; }
 
 .b-photo-caption { grid-column: 5 / 9; grid-row: 3 / 5; }
-.b-stat-crew { grid-column: 5 / 9; grid-row: 5 / 6; flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 20px; }
-.b-stat-crew .b-num { white-space: nowrap; }
-.b-stat-crew .b-label { max-width: 22ch; font-size: 12.5px; }
-.b-avatars { display: flex; flex: 0 0 auto; }
+/* number and label stack like the other stat cards; the avatars sit top-right */
+.b-stat-crew { grid-column: 5 / 9; grid-row: 5 / 6; padding-top: 18px; padding-bottom: 18px; }
+.b-stat-crew .b-num { white-space: nowrap; font-size: clamp(26px, 2.2vw, 34px); }
+.b-stat-crew .b-label { max-width: 34ch; font-size: 12.5px; padding-right: 110px; }
+.b-avatars { position: absolute; top: 18px; right: 20px; display: flex; }
 .b-avatars img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white); margin-left: -12px; }
 .b-avatars img:first-child { margin-left: 0; }
 .b-stat-disciplines { grid-column: 9 / 13; grid-row: 3 / 4; padding-top: 20px; padding-bottom: 20px; }

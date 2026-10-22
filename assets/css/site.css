@@ -514,7 +514,8 @@ a { color: inherit; text-decoration: none; }
   .b-collage { width: 170px; height: 110px; right: 14px; top: -14px; }
   .b-collage img { width: 82px; height: 64px; }
   .b-collage img:nth-child(2) { left: 84px; } .b-collage img:nth-child(3) { left: 28px; top: 42px; } .b-collage img:nth-child(4) { left: 96px; top: 46px; }
-  .b-mosaic { grid-column: 1 / 7; grid-row: 3 / 6; }
+  .b-mosaic { grid-column: 1 / 7; grid-row: 3 / 6; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .b-mosaic img:nth-child(n + 7) { display: none; }
   .b-insta { grid-column: 1 / 4; grid-row: 6 / 10; }
   .b-stat-disciplines { grid-column: 4 / 7; grid-row: 6 / 8; }
   .b-photo-car { grid-column: 4 / 7; grid-row: 8 / 10; }

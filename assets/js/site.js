@@ -36,6 +36,19 @@
     update();
   }
 
+  // Services: hovering or focusing a service swaps the portrait ---------------
+  var list = document.querySelector(".services-list");
+  var figure = document.querySelector(".services-figure");
+  if (list && figure) {
+    var activate = function (link) {
+      var key = link.dataset.service;
+      list.querySelectorAll("li").forEach(function (li) { li.classList.toggle("is-active", li.contains(link)); });
+      figure.querySelectorAll("img").forEach(function (img) { img.classList.toggle("is-active", img.dataset.for === key); });
+    };
+    list.addEventListener("mouseover", function (e) { var a = e.target.closest("a[data-service]"); if (a) activate(a); });
+    list.addEventListener("focusin", function (e) { var a = e.target.closest("a[data-service]"); if (a) activate(a); });
+  }
+
   // Background video: respect reduced motion, pause when off screen --------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.querySelectorAll("video[data-bg]").forEach(function (video) {

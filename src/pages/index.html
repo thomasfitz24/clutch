@@ -215,6 +215,106 @@
       </div>
     </section>
 
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <p class="about-label"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" fill="currentColor"/></svg>FAQ</p>
+      <h2 id="faq-title" class="faq-title">Frequently<br>asked <em>questions</em></h2>
+      <a class="btn faq-cta" href="#contact">Let's talk</a>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary><span>How far ahead should we book?</span><small>(01)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>Campaign shoots usually need three to six weeks so we can recce, plan and clear crew and aircraft. Smaller stills days can often happen within a fortnight. If your date is fixed, get in touch early and we'll hold it.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span>Where do you shoot?</span><small>(02)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>We're based in the Lake District and work across the UK and abroad. Travel and accommodation are quoted up front, so there are no surprises on the invoice.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span>Are your drone and FPV pilots licensed and insured?</span><small>(03)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>Yes. Our pilots fly with current CAA authorisation and we carry public liability cover. For FPV and complex locations we plan the flight and any permissions before the day. Ask and we'll send current certificates.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span>What do we get at the end?</span><small>(04)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>Graded stills and finished film cuts in the formats you need: campaign, web and social crops. Edit and colour are done in-house, so one team sees the job through.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span>How long until delivery?</span><small>(05)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>Stills are typically with you within two weeks of the shoot. Films depend on the edit, usually three to four weeks. Tight deadlines are possible if we know early.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span>Can you work with our agency or in-house team?</span><small>(06)</small><i aria-hidden="true"></i></summary>
+          <div class="faq-body"><p>Happily. We slot in alongside creative teams, directors and existing briefs, or run the whole production ourselves. Either way you get one point of contact.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact-intro">
+        <p class="about-label"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" fill="currentColor"/></svg>Contact</p>
+        <h2 id="contact-title" class="contact-title">Tell us about <em>your project.</em></h2>
+        <p class="contact-copy">A few lines about the brand, the dates and what you need back is plenty. We reply within two working days.</p>
+        <dl class="contact-details">
+          <div><dt>Email</dt><dd><a href="mailto:hello@kieranfallows.com">hello@kieranfallows.com</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/clutchco.pro/?hl=en-gb" target="_blank" rel="noopener">@clutchco.pro</a></dd></div>
+          <div><dt>Based</dt><dd>Lake District, Cumbria. Working worldwide.</dd></div>
+        </dl>
+      </div>
+
+      <!-- Set action to your form endpoint (e.g. https://formspree.io/f/xxxx). See README. -->
+      <form class="contact-form" data-form action="REPLACE_WITH_FORM_ENDPOINT" method="post" novalidate>
+        <input type="hidden" name="_subject" value="Clutch Co enquiry">
+        <div class="form-row">
+          <label class="field form-group">
+            <span class="field-label">First name</span>
+            <input type="text" name="first_name" autocomplete="given-name" required>
+            <span class="form-error">Please add your first name.</span>
+          </label>
+          <label class="field form-group">
+            <span class="field-label">Last name</span>
+            <input type="text" name="last_name" autocomplete="family-name" required>
+            <span class="form-error">Please add your last name.</span>
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="field form-group">
+            <span class="field-label">Email</span>
+            <input type="email" name="email" autocomplete="email" inputmode="email" required>
+            <span class="form-error">Please enter a valid email address.</span>
+          </label>
+          <label class="field form-group">
+            <span class="field-label">Phone <small>optional</small></span>
+            <input type="tel" name="phone" autocomplete="tel" inputmode="tel">
+          </label>
+        </div>
+        <fieldset class="form-group">
+          <legend class="field-label">What do you need?</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="services" value="Photography" required><span>Photography</span></label>
+            <label class="chip"><input type="checkbox" name="services" value="Film &amp; video"><span>Film &amp; video</span></label>
+            <label class="chip"><input type="checkbox" name="services" value="Cinematic drone"><span>Cinematic drone</span></label>
+            <label class="chip"><input type="checkbox" name="services" value="FPV"><span>FPV</span></label>
+            <label class="chip"><input type="checkbox" name="services" value="Edit &amp; colour"><span>Edit &amp; colour</span></label>
+          </div>
+          <span class="form-error">Pick at least one.</span>
+        </fieldset>
+        <div class="form-row">
+          <label class="field form-group">
+            <span class="field-label">Shoot date <small>if known</small></span>
+            <input type="date" name="start_date">
+          </label>
+        </div>
+        <label class="field form-group">
+          <span class="field-label">Project details</span>
+          <textarea name="details" rows="5" required></textarea>
+          <span class="form-error">Tell us a little about the project.</span>
+        </label>
+        <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+        <div class="form-actions">
+          <button class="btn" type="submit">Send enquiry</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
+
   </main>
 
   <!--#footer-->

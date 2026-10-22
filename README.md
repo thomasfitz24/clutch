@@ -7,8 +7,21 @@ Clutch Co. is a photography and videography studio based in the Lake District, w
 
 ## Pages
 
-Only the homepage (`index.html`) exists for now: a full-screen background video and a scrolling reel of
-client logos. The other pages were cleared out on 22 Oct 2026 so the site can be designed from scratch.
+A single page, `index.html`, in this order: inset video hero with the header bar, About statement,
+Trusted by logo rows, Services band, bento grid, FAQ, contact form, footer. The earlier multi-page
+rebuild was cleared out on 22 Oct 2026 so the site could be designed from scratch.
+
+## Connecting the enquiry form
+
+The contact form posts to the URL in its `<form action="…">`. It is set to `REPLACE_WITH_FORM_ENDPOINT`
+until you pick a service, and the page tells the visitor the form isn't connected yet.
+
+- **Formspree**: create a form, copy its endpoint (`https://formspree.io/f/xxxxxxxx`) into `action`.
+- **Netlify Forms**: add `data-netlify="true"` to the form and remove the `data-form` attribute so the
+  browser posts it natively.
+- **Your own endpoint**: anything that accepts a multipart POST and returns 2xx.
+
+The form has a hidden `_gotcha` honeypot field and client-side validation.
 
 ## Layout
 

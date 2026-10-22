@@ -104,6 +104,58 @@
     list.addEventListener("focusin", function (e) { var a = e.target.closest("a[data-service]"); if (a) activate(a); });
   }
 
+  // Enquiry form: validate, then post to the form's action ----------------------
+  document.querySelectorAll("form[data-form]").forEach(function (form) {
+    var status = form.querySelector(".form-status");
+    var say = function (state, text) { if (status) { status.dataset.state = state; status.textContent = text; } };
+    var validate = function () {
+      var ok = true;
+      form.querySelectorAll(".form-group").forEach(function (group) {
+        var invalid = false;
+        group.querySelectorAll("[required]").forEach(function (el) {
+          if (el.type === "checkbox") {
+            if (!group.querySelector('input[name="' + el.name + '"]:checked')) invalid = true;
+          } else if (!el.value.trim() || (el.type === "email" && !el.checkValidity())) {
+            invalid = true;
+          }
+        });
+        group.classList.toggle("invalid", invalid);
+        if (invalid) ok = false;
+      });
+      return ok;
+    };
+    form.addEventListener("input", function (e) {
+      var g = e.target.closest(".form-group");
+      if (g && g.classList.contains("invalid")) validate();
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!validate()) { say("error", "Please complete the highlighted fields."); return; }
+      var honeypot = form.querySelector(".hp input");
+      if (honeypot && honeypot.value) { say("ok", "Thanks, we'll be in touch."); form.reset(); return; }
+      var action = form.getAttribute("action") || "";
+      if (!action || /REPLACE/i.test(action)) {
+        say("error", "This form isn't connected yet. Add your form endpoint to the form's action attribute.");
+        return;
+      }
+      var button = form.querySelector('[type="submit"]');
+      if (button) { button.disabled = true; button.dataset.label = button.textContent; button.textContent = "Sending…"; }
+      say("", "");
+      fetch(action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
+        .then(function (r) { if (!r.ok) throw new Error("bad status"); say("ok", "Thanks, your enquiry is in. We'll reply within two working days."); form.reset(); })
+        .catch(function () { say("error", "Something went wrong sending the form. Please email us instead."); })
+        .finally(function () { if (button) { button.disabled = false; button.textContent = button.dataset.label; } });
+    });
+  });
+
+  // FAQ: opening one row closes the others --------------------------------------
+  var faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach(function (item) {
+    item.addEventListener("toggle", function () {
+      if (item.open) faqItems.forEach(function (other) { if (other !== item) other.open = false; });
+    });
+  });
+
   // Background video: respect reduced motion, pause when off screen --------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.querySelectorAll("video[data-bg]").forEach(function (video) {

@@ -22,7 +22,8 @@
     });
   }
 
-  // Services dropdown (desktop): opens on hover or click of the Services link --
+  // Services dropdown (desktop): opens on hover or click of the Services link,
+  // closes when the pointer leaves the bar or moves to another link ---------
   var bar = document.getElementById("site-bar");
   var trigger = document.querySelector(".bar-nav .has-menu");
   var mega = document.getElementById("mega-services");
@@ -34,11 +35,13 @@
       bar.classList.toggle("mega-open", open);
       trigger.setAttribute("aria-expanded", open ? "true" : "false");
     };
-    var scheduleClose = function () { clearTimeout(closeTimer); closeTimer = setTimeout(function () { setMega(false); }, 160); };
+    var scheduleClose = function () { clearTimeout(closeTimer); closeTimer = setTimeout(function () { setMega(false); }, 120); };
     trigger.addEventListener("mouseenter", function () { if (desktop.matches) setMega(true); });
-    trigger.addEventListener("mouseleave", function () { if (desktop.matches) scheduleClose(); });
-    mega.addEventListener("mouseenter", function () { clearTimeout(closeTimer); });
-    mega.addEventListener("mouseleave", function () { if (desktop.matches) scheduleClose(); });
+    bar.addEventListener("mouseleave", function () { if (desktop.matches) scheduleClose(); });
+    bar.addEventListener("mouseenter", function () { clearTimeout(closeTimer); });
+    bar.querySelectorAll(".bar-nav a:not(.has-menu), .bar-cta, .bar-logo").forEach(function (el) {
+      el.addEventListener("mouseenter", function () { if (desktop.matches) setMega(false); });
+    });
     trigger.addEventListener("click", function (e) {
       if (!desktop.matches) return;
       e.preventDefault();
@@ -49,6 +52,22 @@
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMega(false); });
     document.addEventListener("click", function (e) { if (!bar.contains(e.target)) setMega(false); });
+
+    // Hovering a service previews it in the card
+    var megaTitle = mega.querySelector(".mega-card-title");
+    var megaText = mega.querySelector(".mega-card-text");
+    var megaDefault = { title: megaTitle.textContent, text: megaText.textContent };
+    var showPreview = function (link) {
+      var key = link ? link.dataset.serviceJump : "all";
+      mega.querySelectorAll(".mega-list li").forEach(function (li) { li.classList.toggle("is-active", !!link && li.contains(link)); });
+      mega.querySelectorAll(".mega-figure img").forEach(function (img) { img.classList.toggle("is-active", img.dataset.for === key); });
+      megaTitle.textContent = link ? link.querySelector("strong").textContent : megaDefault.title;
+      megaText.textContent = link ? link.querySelector("span").textContent : megaDefault.text;
+    };
+    mega.addEventListener("mouseover", function (e) { var a = e.target.closest("a[data-service-jump]"); if (a) showPreview(a); });
+    mega.addEventListener("focusin", function (e) { var a = e.target.closest("a[data-service-jump]"); if (a) showPreview(a); });
+    mega.querySelector(".mega-list").addEventListener("mouseleave", function () { showPreview(null); });
+
     mega.addEventListener("click", function (e) {
       var a = e.target.closest("a[data-service-jump]");
       if (a) {

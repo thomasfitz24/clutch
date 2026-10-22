@@ -18,6 +18,7 @@
   --frame: clamp(10px, 1.4vw, 20px);   /* gap between the viewport edge and the hero panel */
   --radius: clamp(16px, 2vw, 28px);     /* hero panel */
   --radius-box: 16px;                   /* header bar and the studio card */
+  --radius-btn: 10px;                   /* buttons: squarer, to match the boxes */
   --pad: clamp(18px, 2.6vw, 40px);     /* padding inside the hero panel */
   --max: 1480px;
 
@@ -51,7 +52,7 @@ a { color: inherit; text-decoration: none; }
 .skip-link {
   position: absolute; top: 8px; left: 8px; z-index: 100;
   background: var(--ink); color: var(--white);
-  padding: 10px 16px; font-weight: 600; font-size: 13px; border-radius: 999px;
+  padding: 10px 16px; font-weight: 600; font-size: 13px; border-radius: var(--radius-btn);
   transform: translateY(-200%);
 }
 .skip-link:focus { transform: none; }
@@ -63,7 +64,7 @@ a { color: inherit; text-decoration: none; }
   min-height: 42px; padding: 10px 22px;
   background: var(--ink); color: var(--white);
   font: inherit; font-size: 14px; font-weight: 500;
-  border: 1px solid transparent; border-radius: 999px; cursor: pointer;
+  border: 1px solid transparent; border-radius: var(--radius-btn); cursor: pointer;
   white-space: nowrap;
   transition: background 200ms var(--ease), color 200ms var(--ease), transform 200ms var(--ease);
 }
@@ -111,8 +112,8 @@ a { color: inherit; text-decoration: none; }
   pointer-events: auto;
   width: calc(min(100% - 2 * var(--frame), var(--max)) - 2 * var(--pad));
   margin: 0 auto;
-  display: flex; align-items: center; gap: 24px;
-  height: 60px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px;
+  min-height: 60px;
   padding: 8px 8px 8px 24px;
   color: var(--white);
   background: var(--black);
@@ -121,12 +122,14 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition: background 320ms var(--ease), border-color 320ms var(--ease), box-shadow 320ms var(--ease);
 }
+.hero-bar.mega-open { background: rgba(13, 13, 12, 0.94); }
 .hero-bar.is-scrolled {
   background: rgba(13, 13, 12, 0.58);
   border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
   -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
 }
+.hero-bar.is-scrolled.mega-open { background: rgba(13, 13, 12, 0.86); }
 .bar-logo { display: inline-flex; flex: 0 0 auto; }
 .bar-logo img { height: 20px; width: auto; }
 
@@ -147,20 +150,24 @@ a { color: inherit; text-decoration: none; }
 .hero-bar.mega-open .bar-nav a.has-menu { color: var(--white); }
 .hero-bar.mega-open .bar-nav a.has-menu svg { transform: rotate(180deg); }
 
-/* Services dropdown: a panel hanging from the bar at exactly the bar's width */
+/* Services dropdown: the bar itself extends downwards to reveal the panel */
 .mega {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0;
-  display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px;
-  padding: 26px 28px 28px;
-  background: rgba(13, 13, 12, 0.96);
-  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-box);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-  opacity: 0; visibility: hidden; transform: translateY(-8px);
-  transition: opacity 220ms var(--ease), transform 260ms var(--ease), visibility 0s 260ms;
+  flex: 1 0 100%;
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 380ms var(--ease);
 }
-.hero-bar.mega-open .mega { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.mega-inner {
+  min-height: 0; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px;
+  align-items: start;
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity 220ms var(--ease), transform 300ms var(--ease);
+}
+.mega-inner > * { margin-top: 18px; margin-bottom: 14px; }
+.mega-inner > .mega-list { margin-left: -14px; }
+.mega-inner > .mega-card { margin-right: 10px; }
+.hero-bar.mega-open .mega { grid-template-rows: 1fr; }
+.hero-bar.mega-open .mega-inner { opacity: 1; transform: none; transition-delay: 80ms; }
 
 .mega-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; align-content: start; }
 .mega-list a {
@@ -393,5 +400,5 @@ a { color: inherit; text-decoration: none; }
   .reel-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; row-gap: 16px; }
   .reel-item.dup { display: none; }
   .btn, .bar-nav a, .bar-menu, .bar-cta, .bar-meta, .hero-bar, .nav-toggle span,
-  .services-figure img, .services-list a, .mega, .mega-list a, .mega-card, .bar-nav a.has-menu svg { transition: none; }
+  .services-figure img, .services-list a, .mega, .mega-inner, .mega-list a, .mega-card, .bar-nav a.has-menu svg { transition: none; }
 }

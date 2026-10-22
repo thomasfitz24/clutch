@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <!--#head-->
+  <title>Work with us. — CLUTCH Co.</title>
+  <meta name="description" content="Join the Clutch Co. freelancer network. Videographers, photographers, FPV and drone pilots, VFX, editors, colourists and sound engineers.">
+</head>
+<body data-page="work-with-us">
+  <!--#header-->
+
+  <main id="main">
+    <section class="section form-section" style="padding-top:calc(var(--header-h) + 40px)">
+      <div class="form-wrap">
+        <div class="form-intro">
+          <h1 class="title">Freelancer network</h1>
+          <p class="copy">We're looking to connect with amazing creatives.</p>
+          <p class="copy">Please fill out the form below, and we'll add you to our freelancer database.</p>
+        </div>
+
+        <!-- Set action to your form endpoint (e.g. https://formspree.io/f/xxxx). See README. -->
+        <form data-form action="REPLACE_WITH_FORM_ENDPOINT" method="post" novalidate>
+          <input type="hidden" name="_subject" value="Clutch Co freelancer application">
+
+          <fieldset class="form-group">
+            <legend class="form-legend">Name</legend>
+            <div class="form-row">
+              <label class="field">
+                <span class="field-label">First name <span class="req">(required)</span></span>
+                <input type="text" name="first_name" autocomplete="given-name" required>
+              </label>
+              <label class="field">
+                <span class="field-label">Last name <span class="req">(required)</span></span>
+                <input type="text" name="last_name" autocomplete="family-name" required>
+              </label>
+            </div>
+            <p class="form-error">Please enter your first and last name.</p>
+          </fieldset>
+
+          <div class="form-group">
+            <label class="field">
+              <span class="form-label">Email <span class="req">(required)</span></span>
+              <input type="email" name="email" autocomplete="email" inputmode="email" required>
+            </label>
+            <p class="form-error">Please enter a valid email address.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="field">
+              <span class="form-label">Website/portfolio</span>
+              <textarea name="portfolio" rows="3" placeholder="Links to your site, reel, Instagram or Vimeo"></textarea>
+            </label>
+          </div>
+
+          <fieldset class="form-group">
+            <legend class="form-legend">What do you specialise in?</legend>
+            <div class="choice-list">
+              <label class="choice"><input type="checkbox" name="specialism" value="Videography"> Videography</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="Photography"> Photography</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="FPV"> FPV</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="Cinematic drone"> Cinematic drone</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="VFX"> VFX</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="Editing"> Editing</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="Colour grading"> Colour grading</label>
+              <label class="choice"><input type="checkbox" name="specialism" value="Sound engineer"> Sound engineer</label>
+            </div>
+          </fieldset>
+
+          <div class="form-group">
+            <label class="field">
+              <span class="form-label">Additional details</span>
+              <textarea name="details" rows="4"></textarea>
+            </label>
+          </div>
+
+          <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+
+          <div class="form-actions center">
+            <button class="btn" type="submit">Submit</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!--#footer-->
+</body>
+</html>

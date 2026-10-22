@@ -1,6 +1,26 @@
-/* CLUTCH Co. — small enhancements: mobile nav, background video, form handling. */
+/* CLUTCH Co. — small enhancements: mobile nav and the background video. */
 (function () {
   "use strict";
+
+  // Mobile navigation ------------------------------------------------------
+  var toggle = document.querySelector(".nav-toggle");
+  var nav = document.getElementById("site-nav");
+  if (toggle && nav) {
+    var setOpen = function (open) {
+      document.body.classList.toggle("nav-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    toggle.addEventListener("click", function () {
+      setOpen(!document.body.classList.contains("nav-open"));
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("nav-open")) setOpen(false);
+    });
+  }
 
   // Background video: respect reduced motion, pause when off screen --------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -22,5 +42,4 @@
       document.hidden ? video.pause() : play();
     });
   });
-
 })();

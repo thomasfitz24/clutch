@@ -6,10 +6,10 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
-  <title>CLUTCH Co. — Photography & videography, Lake District</title>
-  <meta name="description" content="Clutch Co. is a photography and videography studio based in the Lake District, working worldwide. Motion, stills, drone and FPV for brands including Jeep, Montane, Columbia, Gyeon, Hoka and M-Sport.">
+  <title>CLUTCH Co. — Photography & film, Lake District</title>
+  <meta name="description" content="Clutch Co. is a photography and film studio based in the Lake District, working worldwide. Motion, stills, drone and FPV for brands including Jeep, Montane, Columbia, Gyeon, Hoka and M-Sport.">
   <meta property="og:site_name" content="CLUTCH Co.">
   <meta property="og:title" content="CLUTCH Co.">
   <meta property="og:type" content="website">
@@ -17,19 +17,49 @@
 </head>
 <body data-page="index">
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="site-logo" href="index.html" aria-label="Clutch Co. home">
-      <img src="assets/img/logo-white.webp" alt="CLUTCH Co." width="2500" height="484">
-    </a>
-  </header>
 
   <main id="main">
-    <section class="hero" style="background-image:url('assets/img/hero-dsc09497.jpg')">
-      <h1 class="sr-only">Clutch Co. Photography and videography. Based in the Lake District, working worldwide.</h1>
+    <section class="hero" aria-labelledby="hero-title">
       <video class="hero-media" data-bg autoplay muted loop playsinline preload="metadata"
              poster="assets/img/home-hero-poster.jpg" aria-hidden="true" tabindex="-1">
         <source src="assets/video/home-hero.mp4" type="video/mp4">
       </video>
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <header class="hero-bar">
+        <a class="bar-logo" href="index.html" aria-label="Clutch Co. home">
+          <img src="assets/img/logo-white.webp" alt="CLUTCH Co." width="2500" height="484">
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+        <nav class="bar-nav" id="site-nav" aria-label="Main">
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn btn-light bar-cta" href="mailto:hello@kieranfallows.com?bcc=jakevideo%40outlook.com&amp;subject=Clutch%20Co%20Enquiry">Get in touch</a>
+      </header>
+
+      <div class="hero-foot">
+        <div class="hero-brand">
+          <h1 id="hero-title" class="hero-wordmark">
+            <img src="assets/img/logo-white.webp" alt="CLUTCH Co." width="2500" height="484">
+          </h1>
+          <p class="hero-tag">Photography &amp; film, <em>shot in motion.</em></p>
+          <p class="hero-copy">Based in the Lake District, working worldwide. Campaign films, stills, drone and FPV for brands that move.</p>
+        </div>
+
+        <aside class="hero-card">
+          <p class="hero-card-label">The studio</p>
+          <p class="hero-card-text">A small crew that shoots, flies, edits and grades. One point of contact from recce to delivery.</p>
+          <div class="hero-card-row">
+            <span class="hero-card-meta">Jeep, Montane, Columbia, Gyeon, Hoka, M-Sport</span>
+            <a class="btn btn-light" href="#contact">Let's talk</a>
+          </div>
+        </aside>
+      </div>
     </section>
 
     <section class="reel" aria-label="Brands we have worked with">

@@ -16,7 +16,8 @@
   --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
 
   --frame: clamp(10px, 1.4vw, 20px);   /* gap between the viewport edge and the hero panel */
-  --radius: clamp(16px, 2vw, 28px);
+  --radius: clamp(16px, 2vw, 28px);     /* hero panel */
+  --radius-box: 16px;                   /* header bar and the studio card */
   --pad: clamp(18px, 2.6vw, 40px);     /* padding inside the hero panel */
   --max: 1480px;
 
@@ -115,7 +116,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--white);
   background: var(--black);
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: var(--radius-box);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition: background 320ms var(--ease), border-color 320ms var(--ease), box-shadow 320ms var(--ease);
 }
@@ -175,7 +176,7 @@ a { color: inherit; text-decoration: none; }
   background: rgba(255, 255, 255, 0.12);
   -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 18px;
+  border-radius: var(--radius-box);
   padding: 20px 22px 18px;
 }
 .hero-card-label { margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--white-soft); }
@@ -228,7 +229,7 @@ a { color: inherit; text-decoration: none; }
     transition: transform 360ms var(--ease) 100ms, opacity 280ms var(--ease) 100ms;
   }
 
-  body.nav-open .hero-bar { border-radius: 28px; padding-bottom: 10px; background: rgba(13, 13, 12, 0.94); }
+  body.nav-open .hero-bar { padding-bottom: 10px; background: rgba(13, 13, 12, 0.94); }
   body.nav-open .bar-menu { grid-template-rows: 1fr; }
   body.nav-open .bar-nav a, body.nav-open .bar-cta, body.nav-open .bar-meta { transform: none; opacity: 1; }
   body.nav-open .nav-toggle span:first-child { transform: translateY(7.5px) rotate(45deg); }

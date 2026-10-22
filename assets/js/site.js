@@ -22,8 +22,44 @@
     });
   }
 
-  // Header bar: solid at the top of the page, glass once scrolled ------------
+  // Services dropdown (desktop): opens on hover or click of the Services link --
   var bar = document.getElementById("site-bar");
+  var trigger = document.querySelector(".bar-nav .has-menu");
+  var mega = document.getElementById("mega-services");
+  var desktop = window.matchMedia("(min-width: 761px)");
+  if (bar && trigger && mega) {
+    var closeTimer;
+    var setMega = function (open) {
+      clearTimeout(closeTimer);
+      bar.classList.toggle("mega-open", open);
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    var scheduleClose = function () { clearTimeout(closeTimer); closeTimer = setTimeout(function () { setMega(false); }, 160); };
+    trigger.addEventListener("mouseenter", function () { if (desktop.matches) setMega(true); });
+    trigger.addEventListener("mouseleave", function () { if (desktop.matches) scheduleClose(); });
+    mega.addEventListener("mouseenter", function () { clearTimeout(closeTimer); });
+    mega.addEventListener("mouseleave", function () { if (desktop.matches) scheduleClose(); });
+    trigger.addEventListener("click", function (e) {
+      if (!desktop.matches) return;
+      e.preventDefault();
+      setMega(!bar.classList.contains("mega-open"));
+    });
+    bar.addEventListener("focusout", function (e) {
+      if (!bar.contains(e.relatedTarget)) setMega(false);
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMega(false); });
+    document.addEventListener("click", function (e) { if (!bar.contains(e.target)) setMega(false); });
+    mega.addEventListener("click", function (e) {
+      var a = e.target.closest("a[data-service-jump]");
+      if (a) {
+        var target = document.querySelector('.services-list a[data-service="' + a.dataset.serviceJump + '"]');
+        if (target) target.dispatchEvent(new Event("focusin", { bubbles: true }));
+      }
+      setMega(false);
+    });
+  }
+
+  // Header bar: solid at the top of the page, glass once scrolled ------------
   if (bar) {
     var ticking = false;
     var update = function () {

@@ -97,20 +97,40 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.1) 48%, rgba(0, 0, 0, 0) 70%);
 }
 
-/* The header is a solid, rounded bar floating inside the hero. It spans the
-   panel's full width minus the panel padding, so its edges line up with the
-   wordmark and the card below it. */
+/* The header is a solid, rounded bar that sits over the hero and follows the page.
+   It is fixed to the viewport in a full-width wrapper whose inner width matches the
+   hero panel, so the bar's edges line up with the wordmark and card beneath it.
+   At the top of the page it is solid; once you scroll it turns to frosted glass. */
+.bar-wrap {
+  position: fixed; top: calc(var(--frame) + var(--pad)); left: 0; right: 0; z-index: 50;
+  pointer-events: none;
+}
 .hero-bar {
-  position: absolute; top: var(--pad); left: var(--pad); right: var(--pad); z-index: 3;
+  pointer-events: auto;
+  width: calc(min(100% - 2 * var(--frame), var(--max)) - 2 * var(--pad));
+  margin: 0 auto;
   display: flex; align-items: center; gap: 24px;
   height: 60px;
   padding: 8px 8px 8px 24px;
+  color: var(--white);
   background: var(--black);
+  border: 1px solid transparent;
   border-radius: 999px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: background 320ms var(--ease), border-color 320ms var(--ease), box-shadow 320ms var(--ease);
+}
+.hero-bar.is-scrolled {
+  background: rgba(13, 13, 12, 0.58);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
 }
 .bar-logo { display: inline-flex; flex: 0 0 auto; }
 .bar-logo img { height: 20px; width: auto; }
+
+/* On wide screens the menu wrapper dissolves so nav, button and meta sit in the bar's flex row */
+.bar-menu, .bar-menu-inner { display: contents; }
+.bar-meta { display: none; }
 
 .bar-nav { display: flex; align-items: center; gap: 28px; margin: 0 auto; }
 .bar-nav a {
@@ -124,11 +144,11 @@ a { color: inherit; text-decoration: none; }
 
 .nav-toggle {
   display: none;
-  appearance: none; background: none; border: 0; padding: 10px 0 10px 10px;
+  appearance: none; background: none; border: 0; padding: 10px 14px 10px 10px;
   margin-left: auto; cursor: pointer; color: var(--white);
 }
 .nav-toggle span {
-  display: block; width: 28px; height: 1.5px; background: currentColor;
+  display: block; width: 26px; height: 1.5px; background: currentColor;
   margin: 6px 0; transition: transform 300ms var(--ease);
 }
 
@@ -169,22 +189,48 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 760px) {
-  .bar-cta { display: none; }
-  .nav-toggle { display: block; padding-right: 14px; }
-  .hero-bar { height: 56px; padding-left: 20px; }
-  .bar-nav {
-    position: absolute; left: 0; right: 0; top: calc(100% + 8px);
-    flex-direction: column; align-items: stretch; gap: 0;
-    padding: 6px 20px 10px;
-    background: var(--black);
-    border-radius: 22px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    opacity: 0; visibility: hidden; transform: translateY(-6px);
-    transition: opacity 220ms var(--ease), transform 220ms var(--ease), visibility 0s 220ms;
+  .nav-toggle { display: block; }
+
+  /* The bar itself opens into the menu: it wraps, grows and squares its corners */
+  .hero-bar {
+    height: auto; min-height: 56px;
+    flex-wrap: wrap; align-items: center; gap: 0;
+    padding: 6px 6px 6px 20px;
+    transition: border-radius 320ms var(--ease), padding 320ms var(--ease);
   }
-  .bar-nav a { font-size: 17px; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-  .bar-nav a:last-child { border-bottom: 0; }
-  body.nav-open .bar-nav { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .bar-logo { height: 44px; align-items: center; }
+
+  .bar-menu {
+    flex: 1 0 100%;
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 360ms var(--ease);
+  }
+  .bar-menu-inner { display: block; min-height: 0; overflow: hidden; }
+
+  .bar-nav { flex-direction: column; align-items: stretch; gap: 0; margin: 0; padding: 4px 14px 0 0; }
+  .bar-nav a {
+    font-size: 30px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1;
+    color: var(--white); padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    transform: translateY(8px); opacity: 0;
+    transition: transform 360ms var(--ease), opacity 280ms var(--ease);
+  }
+  .bar-nav a:hover { border-bottom-color: rgba(255, 255, 255, 0.12); }
+  .bar-cta {
+    display: flex; width: calc(100% - 14px); margin: 18px 14px 0 0; min-height: 50px; font-size: 16px;
+    transform: translateY(8px); opacity: 0;
+    transition: transform 360ms var(--ease) 60ms, opacity 280ms var(--ease) 60ms, background 200ms;
+  }
+  .bar-meta {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin: 18px 14px 10px 0; font-size: 13px; color: var(--white-soft);
+    transform: translateY(8px); opacity: 0;
+    transition: transform 360ms var(--ease) 100ms, opacity 280ms var(--ease) 100ms;
+  }
+
+  body.nav-open .hero-bar { border-radius: 28px; padding-bottom: 10px; background: rgba(13, 13, 12, 0.94); }
+  body.nav-open .bar-menu { grid-template-rows: 1fr; }
+  body.nav-open .bar-nav a, body.nav-open .bar-cta, body.nav-open .bar-meta { transform: none; opacity: 1; }
   body.nav-open .nav-toggle span:first-child { transform: translateY(7.5px) rotate(45deg); }
   body.nav-open .nav-toggle span:last-child { transform: translateY(-7.5px) rotate(-45deg); }
   .hero-wordmark { width: min(100%, 260px); }
@@ -241,5 +287,5 @@ a { color: inherit; text-decoration: none; }
   html { scroll-behavior: auto; }
   .reel-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; row-gap: 16px; }
   .reel-item.dup { display: none; }
-  .btn, .bar-nav a, .bar-nav, .nav-toggle span { transition: none; }
+  .btn, .bar-nav a, .bar-menu, .bar-cta, .bar-meta, .hero-bar, .nav-toggle span { transition: none; }
 }

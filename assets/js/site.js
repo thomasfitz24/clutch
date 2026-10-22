@@ -22,6 +22,20 @@
     });
   }
 
+  // Header bar: solid at the top of the page, glass once scrolled ------------
+  var bar = document.getElementById("site-bar");
+  if (bar) {
+    var ticking = false;
+    var update = function () {
+      bar.classList.toggle("is-scrolled", window.scrollY > 24);
+      ticking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
   // Background video: respect reduced motion, pause when off screen --------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.querySelectorAll("video[data-bg]").forEach(function (video) {
